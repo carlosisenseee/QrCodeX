@@ -29,7 +29,7 @@ public class MainFuncionario {
                     cadastrarFornecedor();
                     break;
                 case 4:
-                    
+
                 case 10:
                     System.out.println("Saindo");
                     System.exit(0);
@@ -41,9 +41,15 @@ public class MainFuncionario {
     public static void menu() {
         System.out.println("""
                 Bem vindo ao QrCodeX
-                1 - Cadastrar um produto
-                2 - Cadastrar um usuario
-                3 - Cadastrar um fornecedor
+                1 - Cadastrar um produto - ok
+                2 - Cadastrar um usuario - ok
+                3 - Cadastrar um fornecedor - ok
+                4 - Alterar um produto -
+                5 - Alterar um usuario -
+                6 - Alterar um fornecedor -
+                7 - Excluir um produto -
+                8 - Excluir um usuario -
+                9 - Excluir um fornecedor -
                 1 - Gerar um QrCode
                 2 - Ler um QrCode
                 10 - Sair
