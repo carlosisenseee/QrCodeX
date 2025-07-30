@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import util.*;
+import model.*;
 
 /*
 Ler da tabela tb_qrcode, que guarda as informacoes do pedido e do fornecedor
@@ -14,7 +16,7 @@ public class Main {
 
         switch (opc) {
             case 1:
-                System.out.println("Informe o");
+                System.out.println("Informe o ");
                 Gerar.gerarQrCode(1, 1);
                 break;
             case 2:
