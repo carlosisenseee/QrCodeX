@@ -15,7 +15,7 @@ public class ProdutoDao {
     }
 
     // Create
-    public boolean inserirProduto(Produto produto) {
+    public static boolean inserirProduto(Produto produto) {
         String sql = "INSERT INTO tb_produtos (id_fornecedor, nome, descricao, quantidade, preco) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, produto.getIdFornecedor());

@@ -15,10 +15,7 @@ public class PedidoDao {
         this.connection = connection;
     }
 
-    /**
-     * Salva o pedido no banco e retorna o id gerado.
-     * Retorna -1 se ocorrer erro.
-     */
+    // Salva o pedido no banco e retorna o id gerado Retorna -1 se ocorrer erro.
     public int salvar(Pedido pedido) {
         String sql = "INSERT INTO tb_pedidos (id_carrinho, data_pedido_feito, data_pedido_entregue, preco_total, status_pagamento) " +
                      "VALUES (?, ?, ?, ?, ?)";
@@ -51,9 +48,7 @@ public class PedidoDao {
         return -1;
     }
 
-    /**
-     * Lista todos os pedidos cadastrados no banco.
-     */
+    // Lista todos os pedidos cadastrados no banco.
     public List<Pedido> listarPedidos() {
         List<Pedido> pedidos = new ArrayList<>();
         String sql = "SELECT * FROM tb_pedidos";

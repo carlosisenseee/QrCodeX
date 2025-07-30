@@ -1,14 +1,7 @@
 import java.util.Scanner;
 import util.*;
-import model.*;
 
-/*
-Ler da tabela tb_qrcode, que guarda as informacoes do pedido e do fornecedor
-e apartir dos dados que o qrcode retornar fazer a pesquisa, como por exemplo, o qrcode com o dados 1, 1
-sao o pedido 1 e o fornecedor 1, e apartir disso realizar o pedido
- */
-
-public class Main {
+public class MainUsuario {
     static Scanner scan = new Scanner(System.in);
     public static void main(String[] args) {
         menu();
@@ -26,8 +19,11 @@ public class Main {
     }
 
     public static void menu() {
-    System.out.println("""
+        System.out.println("""
                 Bem vindo ao QrCodeX
+                1 - Cadastrar um produto
+                2 - Cadastrar um usuario
+                3 - Cadastrar um fornecedor
                 1 - Gerar um QrCode
                 2 - Ler um QrCode
                 """);
