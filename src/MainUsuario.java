@@ -1,4 +1,6 @@
+import dao.PedidoDao;
 import java.util.Scanner;
+import model.Pedido;
 import util.*;
 
 public class MainUsuario {
@@ -27,5 +29,11 @@ public class MainUsuario {
                 1 - Gerar um QrCode
                 2 - Ler um QrCode
                 """);
+    }
+    public void cancelarPedido(Pedido pedido) {
+        Pedido pedidoCancelar = new Pedido();
+        System.out.println("Digite o id do pedido que deseja cancelar:");
+         pedidoCancelar.setIdPedido(scan.nextInt());
+         PedidoDao.cancelarPedido(pedidoCancelar);    
     }
 }

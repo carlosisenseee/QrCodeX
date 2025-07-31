@@ -1,18 +1,14 @@
 package dao;
 
+import control.ConexaoDB;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
 import model.Produto;
 
 public class ProdutoDao {
 
-    private final Connection connection;
-
-    public ProdutoDao(Connection connection) {
-        this.connection = connection;
-    }
+ static final Connection connection = ConexaoDB.getConexao();
 
     // Create
     public static boolean inserirProduto(Produto produto) {

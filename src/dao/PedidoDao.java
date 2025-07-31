@@ -1,11 +1,11 @@
 package dao;
 
-import model.Pedido;
-
+import control.ConexaoDB;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import model.Pedido;
 
 public class PedidoDao {
 
@@ -15,7 +15,10 @@ public class PedidoDao {
         this.connection = connection;
     }
 
-    // Salva o pedido no banco e retorna o id gerado Retorna -1 se ocorrer erro.
+    /**
+     * Salva o pedido no banco e retorna o id gerado.
+     * Retorna -1 se ocorrer erro.
+     */
     public int salvar(Pedido pedido) {
         String sql = "INSERT INTO tb_pedidos (id_carrinho, data_pedido_feito, data_pedido_entregue, preco_total, status_pagamento) " +
                      "VALUES (?, ?, ?, ?, ?)";
@@ -48,7 +51,9 @@ public class PedidoDao {
         return -1;
     }
 
-    // Lista todos os pedidos cadastrados no banco.
+    /**
+     * Lista todos os pedidos cadastrados no banco.
+     */
     public List<Pedido> listarPedidos() {
         List<Pedido> pedidos = new ArrayList<>();
         String sql = "SELECT * FROM tb_pedidos";
@@ -90,4 +95,19 @@ public class PedidoDao {
     }
 
     // Aqui você pode adicionar outros métodos como atualizar, deletar, buscar por id etc, se precisar.
+      public static void cancelarPedido(Pedido Pedido){
+        //Não vamos deletar o pedido, vamos apenas atualizar o status dele para cancelado
+        //na tabela tb_pedidos e tb_estoque;
+        String sql = "UPDATE tb_pedidos p JOIN tb_estoque e ON p.id_pedido = e.id_pedido SET p.status_pagamento = 'CANCELADO', e.status_ = 'CANCELADO' WHERE p.id_pedido = ?";
+        Connection con = ConexaoDB.getConexao();
+        try {
+             PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, Pedido.getIdPedido());
+            stmt.executeUpdate();
+            System.out.println("Pedido cancelado com sucesso!");
+         } catch (SQLException e) {
+        e.printStackTrace();
+        }
+    }
 }
+

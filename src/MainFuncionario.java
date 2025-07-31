@@ -1,9 +1,6 @@
-import java.util.Scanner;
-
-import dao.ProdutoDao;
-import model.*;
 import dao.*;
-import util.*;
+import java.util.Scanner;
+import model.*;
 
 /*
 Ler da tabela tb_qrcode, que guarda as informacoes do pedido e do fornecedor

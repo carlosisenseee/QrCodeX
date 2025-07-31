@@ -1,24 +1,32 @@
 package dao;
 
 import control.ConexaoDB;
-import model.Usuario;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import model.Usuario;
 
 public class UsuarioDao {
 
     private static final Connection connection = ConexaoDB.getConexao();
+    public static int idUsuario = 0;
 
     public static boolean inserirUsuario(Usuario usuario) {
         String sql = "INSERT INTO tb_usuarios (nome, email, senha, telefone, cpf, estado, cidade, cep, bairro, rua, n_casa) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        String sqlIdUsuario = "select id_usuario from tb_usuarios where cpf = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql);  PreparedStatement stmtIdUsuario = connection.prepareStatement(sqlIdUsuario)) {
             stmt.setString(1, usuario.getNome());
             stmt.setString(2, usuario.getEmail());
             stmt.setString(3, usuario.getSenha());
             stmt.setString(4, usuario.getTelefone());
             stmt.setString(5, usuario.getCpf());
+            stmtIdUsuario.setString(1, usuario.getCpf());
+            ResultSet rs = stmtIdUsuario.executeQuery();
+            if(rs.next()) {
+                int idUsuario = rs.getInt("id_usuario");
+                usuario.setIdUsuario(idUsuario);
+            }
+
             stmt.setString(6, usuario.getEstado());
             stmt.setString(7, usuario.getCidade());
             stmt.setString(8, usuario.getCep());
@@ -26,7 +34,8 @@ public class UsuarioDao {
             stmt.setString(10, usuario.getRua());
             stmt.setInt(11, usuario.getNumeroCasa());
 
-            return stmt.executeUpdate() > 0;
+        return stmt.executeUpdate() > 0;
+           
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
