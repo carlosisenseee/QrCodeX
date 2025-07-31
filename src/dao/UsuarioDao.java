@@ -33,13 +33,34 @@ public class UsuarioDao {
             stmt.setString(9, usuario.getBairro());
             stmt.setString(10, usuario.getRua());
             stmt.setInt(11, usuario.getNumeroCasa());
-
+        System.out.println("Usuario cadastrado com sucesso!");
         return stmt.executeUpdate() > 0;
            
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public boolean loginUsuario(Usuario usuario) {
+        String sql = "SELECT * FROM tb_usuarios WHERE email = ? AND senha = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, usuario.getEmail());
+            stmt.setString(2, usuario.getSenha()); 
+            ResultSet rs = stmt.executeQuery();
+            int rowsAffected = rs.getRow();  
+            if (rowsAffected > 0) {
+                System.out.println("Login realizado com sucesso!");
+                return true;
+            } else {
+                System.out.println("Email ou senha incorretos.");
+                return false;
+               }
+        }catch (SQLException e){
+            e.printStackTrace();
+            return false;
+            }
+            
     }
 
     public static List<Usuario> listarUsuarios() {

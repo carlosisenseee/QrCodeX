@@ -1,10 +1,9 @@
 package dao;
 
-import model.Carrinho;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import model.Carrinho;
 
 public class CarrinhoDao {
 
@@ -31,23 +30,24 @@ public class CarrinhoDao {
 
     public List<Carrinho> listarCarrinhos() {
         List<Carrinho> carrinhos = new ArrayList<>();
-        String sql = "SELECT * FROM tb_carrinhos";
-        try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                Carrinho carrinho = new Carrinho(
-                        rs.getInt("id_carrinho"),
-                        rs.getInt("id_usuario"),
-                        rs.getInt("id_produto"),
-                        rs.getInt("quantidade_produto"),
-                        rs.getDouble("preco_produto")
-                );
-                carrinhos.add(carrinho);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        String sql = "SELECT * FROM tb_carrinhos where id_usuario = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, UsuarioDao.idUsuario);
+
+            ResultSet rs = stmt.executeQuery();
+             while (rs.next()) {
+            Carrinho carrinho = new Carrinho(
+                    rs.getInt("id_carrinho"),
+                    rs.getInt("id_usuario"),
+                    rs.getInt("id_produto"),
+                    rs.getInt("quantidade_produto"),
+                    rs.getDouble("preco_produto"));
+                     carrinhos.add(carrinho);
         }
-        return carrinhos;
+        }catch (SQLException e) {
+            e.printStackTrace();
+    }
+return carrinhos;
     }
 }
-

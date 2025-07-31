@@ -2,11 +2,10 @@
 package dao;
 
 import control.ConexaoDB;
-import model.Fornecedor;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import model.Fornecedor;
 
 public class FornecedorDao {
 
